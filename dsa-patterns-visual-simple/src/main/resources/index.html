@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DSA Patterns — Visual</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+    <h1>DSA Patterns — Visual</h1>
+
+    <div class="controls">
+        <select id="pattern">
+            <option value="two-pointers">Two Pointers</option>
+            <option value="sliding-window">Sliding Window</option>
+            <option value="binary-search">Binary Search</option>
+            <option value="frequency-counting">Frequency Counting</option>
+            <option value="prefix-sum">Prefix Sum</option>
+            <option value="matrix-traversal">Matrix Traversal</option>
+            <option value="dfs">DFS (Islands)</option>
+            <option value="bfs">BFS (Rotting Oranges)</option>
+            <option value="monotonic-stack">Monotonic Stack</option>
+            <option value="overlapping-intervals">Overlapping Intervals</option>
+            <option value="top-k-elements">Top K Elements</option>
+            <option value="binary-tree-traversal">Binary Tree Traversal</option>
+            <option value="backtracking">Backtracking (N-Queens)</option>
+            <option value="greedy">Greedy (Jump Game)</option>
+            <option value="dynamic-programming">Dynamic Programming (Edit Dist)</option>
+        </select>
+
+        <div class="playback-controls">
+            <button id="prev" title="Previous Step">⏮</button>
+            <button id="play" class="play-btn" title="Play/Pause">▶ Play</button>
+            <button id="next" title="Next Step">⏭</button>
+            <select id="speed" title="Playback Speed">
+                <option value="1200">0.5x</option>
+                <option value="600" selected>1x</option>
+                <option value="300">2x</option>
+            </select>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="canvas-container">
+        <canvas id="stage" width="900" height="400"></canvas>
+    </div>
+
+    <div class="progress-container">
+        <input type="range" id="slider" min="0" max="0" value="0" step="1">
+        <span id="step-counter">0 / 0</span>
+    </div>
+
+    <div id="caption"></div>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+../dsa-patterns-investigation/target/
+.idea/
+*.iml
+.git/
