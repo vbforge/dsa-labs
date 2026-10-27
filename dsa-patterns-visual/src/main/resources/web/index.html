@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DSA // PATTERNS // VISUAL</title>
+    <meta name="description" content="Live, interactive visualizations of 10 classic algorithm patterns – streamed from a Java server over SSE.">
+    <meta name="theme-color" content="#07050f">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="crt" aria-hidden="true"></div>
+
+<header class="topbar">
+    <div class="brand">
+        <span class="logo" data-text="DSA//VISUAL">DSA//VISUAL</span>
+        <span class="tagline">algorithm patterns · live trace</span>
+    </div>
+    <div class="status" id="statusChip" role="status" aria-live="polite"><i></i><span>IDLE</span></div>
+    <nav class="tools">
+        <button class="ghost" id="btnShare"  title="Copy a link to this exact input">⛓ SHARE</button>
+        <button class="ghost" id="btnExport" title="Download the trace as JSON">⇩ EXPORT</button>
+        <button class="ghost" id="btnFx"     title="Toggle scanlines &amp; glow">◐ FX</button>
+        <button class="ghost" id="btnHelp"   title="Keyboard shortcuts (?)">? KEYS</button>
+    </nav>
+</header>
+
+<div class="layout">
+    <aside class="panel sidebar" aria-label="Algorithms">
+        <h2 class="panel-title">PATTERNS</h2>
+        <input id="algoSearch" type="search" placeholder="filter…" autocomplete="off" spellcheck="false" aria-label="Filter algorithms">
+        <nav id="algoList"></nav>
+    </aside>
+
+    <main class="center">
+        <section class="panel stage-panel">
+            <div class="stage-head">
+                <div>
+                    <h1 id="stageTitle">Loading…</h1>
+                    <div class="tags" id="stageTags"></div>
+                </div>
+            </div>
+            <div class="stage-wrap"><canvas id="stage" aria-label="Algorithm visualization"></canvas></div>
+            <div id="caption" aria-live="polite">&nbsp;</div>
+
+            <div class="transport">
+                <div class="buttons">
+                    <button id="btnFirst" class="icon" title="First frame (Home)">⏮</button>
+                    <button id="btnBack"  class="icon" title="Step back (←)">◀</button>
+                    <button id="btnPlay"  class="icon primary" title="Play / pause (Space)">▶</button>
+                    <button id="btnFwd"   class="icon" title="Step forward (→)">▶▏</button>
+                    <button id="btnLast"  class="icon" title="Last received frame (End)">⏭</button>
+                </div>
+                <input id="scrub" type="range" min="0" max="0" value="0" step="1" aria-label="Scrub through frames" disabled>
+                <div class="readout"><b id="frameCounter">0 / 0</b></div>
+                <label class="speed" title="Playback speed (+ / −)">
+                    <span>SPEED</span>
+                    <input id="speed" type="range" min="1" max="10" value="5" step="1">
+                    <em id="speedLabel">500 ms</em>
+                </label>
+            </div>
+        </section>
+
+        <section class="panel log-panel">
+            <h2 class="panel-title">TRACE LOG <small id="logCount"></small></h2>
+            <ol id="logList" aria-label="Trace log"></ol>
+        </section>
+    </main>
+
+    <aside class="inspector">
+        <section class="panel">
+            <h2 class="panel-title">INPUT</h2>
+            <select id="presetSel" aria-label="Load a preset"></select>
+            <div id="formHost"></div>
+            <div class="actions">
+                <button id="btnRun" class="primary">▶ RUN</button>
+                <button id="btnRandom" class="ghost" title="Random data">🎲 RANDOM</button>
+                <button id="btnReset" class="ghost" title="Back to the defaults">↺ RESET</button>
+            </div>
+            <p class="note">RUN streams a live trace. <kbd>→</kbd> on an empty stage runs it paused, one frame at a time.</p>
+        </section>
+
+        <section class="panel">
+            <h2 class="panel-title">PSEUDO-CODE</h2>
+            <ol id="pseudo" class="pseudo"></ol>
+        </section>
+
+        <section class="panel">
+            <h2 class="panel-title">BRIEFING</h2>
+            <p id="blurb" class="blurb"></p>
+            <div class="complexity"><span>TIME <b id="cTime">–</b></span><span>SPACE <b id="cSpace">–</b></span></div>
+            <p id="insight" class="insight"></p>
+        </section>
+    </aside>
+</div>
+
+<footer class="footbar">
+    <span id="fConn" class="led off">SERVER …</span>
+    <span id="fFrames">frames 0</span>
+    <span id="fSession">session –</span>
+    <span class="spacer"></span>
+    <span class="keys"><kbd>Space</kbd> play · <kbd>←</kbd><kbd>→</kbd> step · <kbd>Home</kbd><kbd>End</kbd> · <kbd>R</kbd> run · <kbd>?</kbd> help</span>
+</footer>
+
+<dialog id="help">
+    <h2>KEYBOARD</h2>
+    <table>
+        <tr><td><kbd>Space</kbd></td><td>play / pause (pauses the server-side computation too)</td></tr>
+        <tr><td><kbd>→</kbd> <kbd>←</kbd></td><td>step forward / back one frame</td></tr>
+        <tr><td><kbd>Home</kbd> <kbd>End</kbd></td><td>first / last received frame</td></tr>
+        <tr><td><kbd>+</kbd> <kbd>−</kbd></td><td>faster / slower</td></tr>
+        <tr><td><kbd>R</kbd></td><td>run with the current input</td></tr>
+        <tr><td><kbd>?</kbd></td><td>this help</td></tr>
+    </table>
+    <p>Drag the timeline to scrub. Stepping back or scrubbing pauses the live trace on the server; press play to continue.</p>
+    <form method="dialog"><button class="primary">CLOSE</button></form>
+</dialog>
+
+<div id="toast" role="alert"></div>
+<script type="module" src="/app.js"></script>
+</body>
+</html>
